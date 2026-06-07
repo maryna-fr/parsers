@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Парсер-евалюатор формул функцій алгебри логіки</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+  <style>
+/* ── Hamburger menu ──────────────────────────────────────────────────────── */
+.hb-btn {
+  position: fixed; top: 14px; right: 14px; z-index: 1000;
+  width: 44px; height: 44px; background: #20b2aa;
+  border: none; border-radius: 10px; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 5px; padding: 10px;
+}
+.hb-btn span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all .25s; }
+.hb-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hb-btn.open span:nth-child(2) { opacity: 0; }
+.hb-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.hb-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 999; opacity: 0; pointer-events: none; transition: opacity .25s; }
+.hb-overlay.open { opacity: 1; pointer-events: auto; }
+.hb-menu { position: fixed; top: 0; right: -260px; width: 240px; height: 100%; background: #fff; z-index: 1001; box-shadow: -4px 0 20px rgba(0,0,0,.15); transition: right .25s; display: flex; flex-direction: column; padding: 70px 0 24px; }
+.hb-menu.open { right: 0; }
+.hb-menu-title { font-size: .75em; color: #aaa; text-transform: uppercase; letter-spacing: 1px; padding: 0 20px 12px; font-family: Arial, sans-serif; }
+.hb-menu a { display: flex; align-items: center; gap: 12px; padding: 14px 20px; text-decoration: none; color: #333; font-size: 1em; font-family: Arial, sans-serif; transition: background .15s; border-left: 3px solid transparent; }
+.hb-menu a:hover { background: #f0fbfa; }
+.hb-menu a.active { color: #20b2aa; font-weight: bold; border-left-color: #20b2aa; background: #f0fbfa; }
+.hb-menu a .icon { font-size: 1.3em; }
+.hb-divider { height: 1px; background: #eee; margin: 8px 20px; }
+.hb-menu-home { margin-top: auto; }
+</style>
+</head>
+  <body>
+<button class="hb-btn" id="hbBtn" aria-label="Меню"><span></span><span></span><span></span></button>
+<div class="hb-overlay" id="hbOverlay"></div>
+<nav class="hb-menu" id="hbMenu">
+  <div class="hb-menu-title">Парсери</div>
+  <a href="../logic/index.html" class="active"><span class="icon">⊕</span> Алгебра логіки</a>
+  <a href="../sets/index.html"><span class="icon">∩</span> Алгебра множин</a>
+  <div class="hb-divider"></div>
+  <div class="hb-menu-home"><a href="../index.html"><span class="icon">🏠</span> Головна</a></div>
+</nav>
+
+
+    <input type="text" id="formula">
+    <img src="assets/Copy.png" alt="Copy" title="Копіювати в буфер обміну" id="buttonCopyFormula">
+
+    <div id="buttons">
+      <button class="btn normal" value="("  title="Ліва дужка">(</button>
+      <button class="btn normal" value=")"  title="Права дужка">)</button>
+      <button class="btn normal" value="0"  title="0">0</button>
+      <button class="btn normal" value="1"  title="1">1</button>
+      <button class="btn normal" value="!"  title="Заперечення">!</button>
+      <button class="btn normal" value="∧"  title="Кон'юнкція">∧</button>
+      <button class="btn normal" value="∨"  title="Диз'юнкція">∨</button>
+      <button class="btn normal" value="|"  title="Штрих Шеффера">|</button>
+      <button class="btn normal" value="↓"  title="Стрілка Пірса">↓</button>
+      <button class="btn normal" value="⊕"  title="Додавання за модулем 2">⊕</button>
+      <button class="btn normal" value="⟶"  title="Імплікація">⟶</button>
+      <button class="btn normal" value="~"  title="Еквіваленція">∼</button>
+      <button class="btn special" id="buttonBackspace" title="Видалити">
+        <img src="assets/Backspace.png" alt="Backspace">
+      </button>
+      <button class="btn special" id="buttonClear" title="Очистка">
+        <img src="assets/Trash.png" alt="Clear">
+      </button>
+    </div>
+
+    <div id="variables">
+      <input type="hidden" value="1" id="kbz">
+      <button class="btn special" id="buttonAddNewVariable" title="Додати нову змінну">
+        <img src="assets/Add.png" alt="Add">
+      </button>
+      <button class="btn special" id="buttonRemoveLastVariable" title="Видалити останню змінну">
+        <img src="assets/Del.png" alt="Del">
+      </button>
+      <button class="btn normal" value="X1" id="X1" title="X1">X1</button>
+    </div>
+
+    <div id="buttonCalc">
+      <button class="btn" id="buttonCalculate">Обчислити</button>
+    </div>
+
+    <div id="result"></div>
+
+    <!-- JS-модулі: спочатку залежності, потім точка входу -->
+    <script src="js/shunting-yard.js"></script>
+    <script src="js/evaluator.js"></script>
+    <script src="js/main.js"></script>
+  <script>
+(function(){
+  var btn=document.getElementById("hbBtn"),menu=document.getElementById("hbMenu"),overlay=document.getElementById("hbOverlay");
+  function toggle(o){btn.classList.toggle("open",o);menu.classList.toggle("open",o);overlay.classList.toggle("open",o);}
+  btn.addEventListener("click",function(){toggle(!menu.classList.contains("open"));});
+  overlay.addEventListener("click",function(){toggle(false);});
+})();
+</script>
+</body>
+</html>

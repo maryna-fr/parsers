@@ -1,0 +1,292 @@
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+body {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background: #f5f7fa;
+  margin: 0;
+  padding: 20px;
+}
+
+/* ── Formula input ────────────────────────────────────────────────────────── */
+#formula {
+  width: 80%;
+  display: inline-block;
+  font: 1.2em Arial;
+  border: 2px solid black;
+  border-radius: 3px;
+  text-align: center;
+  padding: 6px;
+  margin: 10px auto;
+  line-height: 1;
+}
+#formula:focus {
+  outline: none;
+  border: 2px solid gold;
+}
+
+/* ── Result area ──────────────────────────────────────────────────────────── */
+#result {
+  width: 100%;
+  text-align: center;
+  overflow-x: auto;
+  padding: 0 20px 20px 20px;
+  box-sizing: border-box;
+}
+#result p {
+  margin: 4px 0;
+  font-size: .95em;
+  color: #333;
+}
+.err {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* ── Copy button ──────────────────────────────────────────────────────────── */
+#buttonCopyFormula {
+  vertical-align: top;
+  margin-top: 6px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity .2s;
+}
+#buttonCopyFormula:hover { opacity: 1; }
+
+/* ── Button panels ────────────────────────────────────────────────────────── */
+#buttons, #variables {
+  width: 420px;
+  display: grid;
+  grid-template-columns: repeat(6, 50px);
+  gap: 6px;
+  justify-content: center;
+  margin: 10px auto 0;  
+}
+
+
+#variables {
+  margin-top: 6px;   /* такий самий як gap */
+}
+
+#buttonCalc {
+  display: block;
+  margin: 25px auto 10px auto;
+  width: 324px;
+}
+
+
+
+.btn-disabled {
+  opacity: 0.4;
+  cursor: not-allowed !important;
+}
+
+
+
+/* ── Generic button ───────────────────────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  background-color: lightseagreen;
+  padding: 10px;
+  line-height: 1;
+  border-radius: 6px;
+  border: 0;
+  font-size: 19px;
+  font-family: Arial, monospace;
+  font-weight: bold;
+  
+}
+
+.btn:hover  { background-color: #2981df; }
+.btn:active { box-shadow: inset 0 2px 4px rgba(0,0,0,.2); }
+
+/* ── Phantom (порожній відступ = одна кнопка) ─────────────────────────────── */
+.btn.phantom {
+  background: transparent !important;
+  border: none !important;
+  cursor: default;
+  pointer-events: none;
+  box-shadow: none !important;
+}
+
+/* ── Special (icon) buttons ───────────────────────────────────────────────── */
+.special {
+  padding: 8px;
+  border: 1px solid #20b2aa;
+  background-color: #fff;
+  color: #333;
+}
+.special:hover { background-color: #e8f8f7; }
+
+/* ── Disabled button ──────────────────────────────────────────────────────── */
+.btn-disabled {
+  opacity: 0.4;
+  cursor: not-allowed !important;
+}
+.btn-disabled:hover { background-color: #20b2aa !important; }
+
+/* ── Error flash ──────────────────────────────────────────────────────────── */
+@keyframes errorFlash {
+  0%   { background-color: #e74c3c; }
+  50%  { background-color: #c0392b; }
+  100% { background-color: #20b2aa; }
+}
+.btn-error-flash { animation: errorFlash .6s ease; }
+
+
+
+/* ── Calculate button ─────────────────────────────────────────────────────── */
+#buttonCalc {
+  display: block !important;
+  margin-top: 15px;
+
+  width: auto !important;
+}
+
+#buttonCalculate {
+  width: 324px;
+  height: 50px;
+  margin: 6px auto;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  display: block;
+}
+
+/* ── Set values panel ─────────────────────────────────────────────────────── */
+#setValues {
+  margin: 20px auto 10px;
+  width: 324px;
+  text-align: left;
+}
+
+.set-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+
+.set-label {
+  min-width: 36px;
+  font: bold 1.2em Arial;
+  color: #333;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.set-input {
+  flex: 1;
+  height: 32px;
+  font: 1em 'Courier New', monospace;
+  border: 2px solid #20b2aa;
+  border-radius: 3px;
+  padding: 4px 8px;
+  color: #1a5fa8;
+  background: #f0fbfa;
+  box-sizing: border-box;
+}
+.set-input:focus {
+  outline: none;
+  border-color: gold;
+}
+
+/* ── Truth table ──────────────────────────────────────────────────────────── */
+.truth-table {
+  display: inline-table;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-family: Arial, sans-serif;
+  font-size: 1em;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.truth-table thead tr {
+  background: #20b2aa;
+  color: #fff;
+}
+
+.truth-table th {
+  padding: 8px 16px;
+  border: 1px solid #178a84;
+  white-space: nowrap;
+  font: bold 1em Arial, sans-serif;
+}
+
+.truth-table td {
+  padding: 6px 16px;
+  border: 1px solid #d0e8e7;
+  text-align: center;
+  font: 1em Arial, sans-serif;
+}
+
+.truth-table tbody tr:nth-child(even) { background: #f0fbfa; }
+.truth-table tbody tr:hover           { background: #d6f5f3; }
+
+.val-U { color: #1a7a1a; font-weight: bold; }
+.val-E { color: #aaa; }
+
+.col-final {
+  background: #fff8dc !important;
+  font-weight: bold;
+  border-left: 2px solid #c8a200 !important;
+}
+.truth-table thead .col-final {
+  background: #d4a800 !important;
+  color: #fff;
+}
+/* ── Set brace decorators ─────────────────────────────────────────────────── */
+.set-brace {
+  font: bold 1.2em 'Courier New', monospace;
+  color: #20b2aa;
+  flex-shrink: 0;
+  line-height: 32px;
+  user-select: none;
+}
+
+/* ── Variable button "in use" highlight ───────────────────────────────────── */
+.btn-in-use {
+  opacity: 0.5;
+}
+
+/* ── Vertical table: first column (subexpression label) left-aligned ─────── */
+.truth-table td:first-child,
+.truth-table th:first-child {
+  text-align: center;
+  min-width: 120px;
+}
+
+/* ── Result column right-aligned for set notation ────────────────────────── */
+.truth-table td:last-child {
+  text-align: center;
+  min-width: 100px;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── Final row full yellow highlight ─────────────────────────────────────── */
+.truth-table tr:last-child td {
+  border-top: 2px solid #c8a200;
+}
+
+/* ── Mobile adaptive ──────────────────────────────────────────────────────── */
+@media (max-width: 500px) {
+  body { padding: 12px 8px; }
+  #formula { width: 72%; font-size: 1em; }
+  #buttons, #variables {
+    grid-template-columns: repeat(5, 44px) !important;
+    width: auto !important;
+    gap: 5px !important;
+  }
+  .btn { width: 44px !important; height: 44px !important; font-size: 15px !important; padding: 8px !important; }
+  #buttonCalculate { width: 90% !important; }
+  #setValues { width: 92% !important; }
+  .truth-table { font-size: .82em; }
+  .truth-table th, .truth-table td { padding: 5px 7px; }
+}
