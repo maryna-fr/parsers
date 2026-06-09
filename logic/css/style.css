@@ -9,7 +9,7 @@ body {
 
 /* ── Formula input ────────────────────────────────────────────────────────── */
 #formula {
-  width: 80%;
+  width: min(80%, calc(100% - 70px));
   display: inline-block;
   font: 1.2em Arial;
   border: 2px solid black;
