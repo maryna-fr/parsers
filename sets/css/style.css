@@ -11,7 +11,7 @@ body {
 #formula {
   width: calc(100% - 80px);
   max-width: 600px;
-  min-width: 120px;
+  
   display: inline-block;
   font: 1.2em Arial;
   border: 2px solid black;
@@ -20,15 +20,15 @@ body {
   padding: 6px;
   margin: 10px auto;
   line-height: 1;
-  caret-color: black;
-  cursor: text;
-  color: #333;
-  background: #fff;
 }
-
 #formula:focus {
   outline: none;
   border: 2px solid gold;
+}
+
+#formula {
+  caret-color: black;
+  cursor: text;
 }
 
 /* ── Result area ──────────────────────────────────────────────────────────── */
@@ -295,7 +295,7 @@ body {
   body { padding: 12px 8px; }
   #formula { width: 72%; font-size: 1em; }
   #buttons, #variables {
-    grid-template-columns: repeat(5, 44px) !important;
+    grid-template-columns: repeat(6, 44px) !important;
     width: auto !important;
     gap: 5px !important;
   }
