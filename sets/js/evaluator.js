@@ -58,7 +58,9 @@ function evaluateRPN(rpnTokens, env) {
         const res       = setOps["!"](a.val, U);
         const shortExpr = "! " + a.shortLabel;
         const lbl       = stepLabel(steps.length);
-        steps.push({ shortExpr, result: res });
+        // Якщо операнд ∅ — результат відображаємо як 𝒰
+        const displayResult = a.shortLabel === "∅" ? "𝒰" : null;
+        steps.push({ shortExpr, result: res, displayResult });
         stack.push({ val: res, shortLabel: lbl });
       } else {
         const b = stack.pop();
@@ -102,14 +104,14 @@ function buildResultTable(rpn, varCount, setEnv) {
   for (let i = 0; i < steps.length - 1; i++) {
     html += "<tr>" +
             "<td>" + stepLabel(i) + " = " + steps[i].shortExpr + "</td>" +
-            "<td>" + escHtml(setToStr(steps[i].result)) + "</td>" +
+"<td>" + (steps[i].displayResult || escHtml(setToStr(steps[i].result))) + "</td>" +
             "</tr>";
   }
 
   const last = steps[steps.length - 1];
   html += "<tr>" +
           '<td class="col-final">' + last.shortExpr + '</td>' +
-          '<td class="col-final"><b>' + escHtml(setToStr(finalSet)) + '</b></td>' +
+          '<td class="col-final"><b>' + (last.displayResult || escHtml(setToStr(finalSet))) + '</b></td>' +
           "</tr></tbody></table>";
   return html;
 }
