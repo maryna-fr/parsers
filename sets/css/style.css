@@ -296,7 +296,7 @@ body {
   #formula { width: 72%; font-size: 1em; }
   #buttons, #variables {
     grid-template-columns: repeat(6, 44px) !important;
-    width: auto !important;
+    width: 289px !important;
     gap: 5px !important;
   }
   .btn { width: 44px !important; height: 44px !important; font-size: 15px !important; padding: 8px !important; }
