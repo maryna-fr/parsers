@@ -292,12 +292,15 @@ body {
 
 /* ── Mobile adaptive ──────────────────────────────────────────────────────── */
 @media (max-width: 500px) {
-  body { padding: 12px 8px; }
-  #formula { width: 72%; font-size: 1em; }
-  #buttons, #variables {
-    grid-template-columns: repeat(6, 44px) !important;
-    width: 289px !important;
-    gap: 5px !important;
+  .btn.special {
+    width: 44px !important;
+    height: 44px !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+  .special img {
+    width: 22px !important;
+    height: 22px !important;
   }
   .btn { width: 44px !important; height: 44px !important; font-size: 15px !important; padding: 8px !important; }
   #buttonCalculate { width: 90% !important; }
