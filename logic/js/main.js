@@ -70,7 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   formula.addEventListener("keydown", EventPreventDefault);
-  formula.setAttribute("readonly", "true");
   formula.addEventListener("mousedown", (e) => getDirection(e));
   formula.addEventListener("mouseup",   (e) => getDirection(e));
   formula.addEventListener("click",     fixPosition);

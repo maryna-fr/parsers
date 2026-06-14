@@ -25,6 +25,11 @@ body {
   border: 2px solid gold;
 }
 
+#formula {
+  caret-color: black;
+  cursor: text;
+}
+
 /* ── Result area ──────────────────────────────────────────────────────────── */
 #result {
   width: 100%;

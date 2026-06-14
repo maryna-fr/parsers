@@ -11,7 +11,7 @@ body {
 #formula {
   width: calc(100% - 80px);
   max-width: 600px;
-  
+  min-width: 120px;
   display: inline-block;
   font: 1.2em Arial;
   border: 2px solid black;
@@ -20,7 +20,12 @@ body {
   padding: 6px;
   margin: 10px auto;
   line-height: 1;
+  caret-color: black;
+  cursor: text;
+  color: #333;
+  background: #fff;
 }
+
 #formula:focus {
   outline: none;
   border: 2px solid gold;
@@ -60,7 +65,7 @@ body {
 #buttons, #variables {
   width: min(420px, 95vw);
   display: grid;
-  grid-template-columns: repeat(auto-fill, 50px);
+  grid-template-columns: repeat(6, 50px);
   gap: 6px;
   justify-content: center;
   margin: 10px auto 0;

@@ -88,7 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   formula.addEventListener("keydown", EventPreventDefault);
-  formula.setAttribute("readonly", "true");
   formula.addEventListener("mousedown", (e) => getDirection(e));
   formula.addEventListener("mouseup",   (e) => getDirection(e));
   formula.addEventListener("click",     fixPosition);
@@ -131,9 +130,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function AddInput(s) {
     result.innerHTML = "";
     const tmp = formula.selectionStart;
+    const display = s === "U" ? "𝒰" : s;
     formula.value =
       formula.value.substring(0, tmp) +
-      s.trim() + " " +
+      display.trim() + " " +
       formula.value.substring(tmp, formula.value.length);
     formula.selectionStart = formula.selectionEnd = tmp + s.length + 1;
     formula.focus();
@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
   buttonCalculate.addEventListener("click", calculate);
 
   function calculate() {
-    const infix = formula.value.trim();
+    const infix = formula.value.trim().replace(/𝒰/g, "U");
 
     // 1. Порожня формула
     if (!infix) {
@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       U = parseSet(rawU);
     } catch (e) {
-      showError("Некоректний вміст U");
+      showError("Некоректний вміст 𝒰");
       return;
     }
 
@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (U.length > 0) {
         const outsideU = s.filter(x => !uSet.has(x));
         if (outsideU.length > 0) {
-          showError("Множина " + name + " не є підмножиною U");
+          showError("Множина " + name + " не є підмножиною 𝒰");
           return;
         }
       }

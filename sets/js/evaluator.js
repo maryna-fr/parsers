@@ -75,7 +75,7 @@ function evaluateRPN(rpnTokens, env) {
       const val = env[tok];
       if (val === undefined)
         throw new Error("Невизначена змінна: «" + tok + "»");
-      stack.push({ val, shortLabel: tok });
+        stack.push({ val, shortLabel: tok === "U" ? "𝒰" : tok });
     }
   }
 
