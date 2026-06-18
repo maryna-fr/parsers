@@ -243,8 +243,6 @@ document.addEventListener("DOMContentLoaded", () => {
         showError("Некоректний вміст множини " + name);
         return;
       }
-      // Перевірка A ⊆ U — тільки якщо U непорожня
-       
         const outsideU = s.filter(x => !uSet.has(x));
         if (outsideU.length > 0) {
           showError("Множина " + name + " не є підмножиною 𝒰");
